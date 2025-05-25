@@ -21,18 +21,18 @@ public class listaDobleEnlazada {
             actual=actual.getSiguiente();
         }
         actual.setSiguiente(nuevonodo);
-        nuevonodo.setSiguiente(actual);
+        nuevonodo.setAnterior(actual);
     }
     
     }
     
-    public void mostrar (Alumno alumno){
+    public void mostrar (){
         if(cabeza==null){
             JOptionPane.showMessageDialog(null, "que vas a mostrar ps, si no hay nada");
             return;
         }
       Nodo actual=cabeza;
-        SimpleDateFormat sdf =new SimpleDateFormat ("dd/mm/yy");
+        SimpleDateFormat sdf =new SimpleDateFormat ("dd/MM/yy");
         String resultado="alumno: \n";
         resultado +="codigo-nombre-nota-nacimiento\n";
         while(actual!=null){
