@@ -5,10 +5,10 @@ public class Nodo {
     private Nodo siguiente;
     private Nodo anterior;
 
-    public Nodo(Object dato, Nodo siguiente, Nodo anterior) {
+    public Nodo(Object dato) {
         this.dato = dato;
-        this.siguiente = siguiente;
-        this.anterior = anterior;
+        this.siguiente = null;
+        this.anterior = null;
     }
 
     public Nodo() {
