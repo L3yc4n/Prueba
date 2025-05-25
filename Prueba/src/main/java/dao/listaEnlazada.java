@@ -45,11 +45,11 @@ public class listaEnlazada {
         } else {
             Nodo actual = cabeza;
             //Recorremos hasta el ultimo nodo 
-            while(actual.getSiguiente() != null){
+            while(actual.getSiguiente().getSiguiente() != null){
                 actual = actual.getSiguiente();
             }
             //El ultimo nodo es el actual, lo eliminamos
-            actual.getAnterior().setSiguiente(null);
+            actual.setSiguiente(null);
             JOptionPane.showMessageDialog(null, "Se elimino el ultimo elemento UwU");
         }
     }
@@ -65,6 +65,7 @@ public class listaEnlazada {
         while(actual != null){
             Persona a = (Persona) actual.getDato();
             mensaje += a.getDni() + " - " + a.getNombre() + " - " + a.getApellido() + " - " + a.getNacimiento() + "\n";
+            actual = actual.getSiguiente();
         }
         JOptionPane.showMessageDialog(null, mensaje);
     }
