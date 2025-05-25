@@ -6,6 +6,7 @@ package dao;
 
 import dto.Nodo;
 import dto.Persona;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -60,11 +61,12 @@ public class listaEnlazada {
             JOptionPane.showMessageDialog(null, "La lista esta Vacia, no hay nada que mostrar BAB...");
             return;
         } 
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yy");
         Nodo actual = cabeza;
         String mensaje = "Lista Enlazada - Persona\n";
         while(actual != null){
             Persona a = (Persona) actual.getDato();
-            mensaje += a.getDni() + " - " + a.getNombre() + " - " + a.getApellido() + " - " + a.getNacimiento() + "\n";
+            mensaje += a.getDni() + " - " + a.getNombre() + " - " + a.getApellido() + " - " + sdf.format(a.getNacimiento()) + "\n";
             actual = actual.getSiguiente();
         }
         JOptionPane.showMessageDialog(null, mensaje);
