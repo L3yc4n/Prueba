@@ -28,7 +28,7 @@ public class listaDobleEnlazada {
     
     public void mostrar (Alumno alumno){
         if(cabeza==null){
-            JOptionPane.showMessageDialog(null, "que vas ps, si no hay nada");
+            JOptionPane.showMessageDialog(null, "que vas a mostrar ps, si no hay nada");
             return;
         }
       Nodo actual=cabeza;
@@ -42,5 +42,21 @@ public class listaDobleEnlazada {
         }
         JOptionPane.showMessageDialog(null, resultado);
     }
+    
+    public void eliminarFinal(){
+        if(cabeza == null){
+            JOptionPane.showMessageDialog(null, "Esta vacio que mas quieres eliminar?");
+        } else if(cabeza.getSiguiente() == null) { //este es por si solo hay un elemento
+            cabeza = null;
+            JOptionPane.showMessageDialog(null, "La lista se ha vaciado , ahora si no hay nada de nada");
+        } else {
+            Nodo actual = cabeza; //Recorremos hasta el ultimo nodo 
+            while(actual.getSiguiente() != null){
+                actual = actual.getSiguiente();
+            }
+            actual.getAnterior().setSiguiente(null); //El ultimo nodo es el actual, lo eliminamos
+        }
+    }
+    
     
 }//FINAL
