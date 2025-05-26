@@ -43,6 +43,34 @@ public class listaDobleEnlazada {
         JOptionPane.showMessageDialog(null, resultado);
     }
     
+    /*
+    public void mostrarDesdeAtras() {
+    if (cabeza == null) {
+        JOptionPane.showMessageDialog(null, "¿Qué vas a mostrar pues, si no hay nada?");
+        return;
+    }
+
+    // Ir al último nodo
+    Nodo actual = cabeza;
+    while (actual.getSiguiente() != null) {
+        actual = actual.getSiguiente();
+    }
+
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+    String resultado = "alumno (desde el final):\n";
+    resultado += "codigo - nombre - nota - nacimiento\n";
+
+    // Recorrer hacia atrás
+    while (actual != null) {
+        Alumno a = (Alumno) actual.getDato();
+        resultado += a.getCodigo() + " - " + a.getNombre() + " - " + a.getNota() + " - " + sdf.format(a.getNacimiento()) + "\n";
+        actual = actual.getAnterior();
+    }
+
+    JOptionPane.showMessageDialog(null, resultado);
+}
+    */
+    
     public void eliminarFinal(){
         if(cabeza == null){
             JOptionPane.showMessageDialog(null, "Esta vacio que mas quieres eliminar?");
