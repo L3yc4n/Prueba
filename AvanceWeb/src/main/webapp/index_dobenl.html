@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Lista Enlazada</title>
+        <title>Lista Dob. Enlazada</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <h1>Lista - Persona</h1>
+        <h1>Lista - Alumno</h1>
         <table>
             <tr>
-                <td>DNI: </td><td><input type="text" id="txtCodigo"></td>
+                <td>Código: </td><td><input type="text" id="txtCodigo"></td>
             </tr>
             <tr>
                 <td>Nombre: </td><td><input type="text" id="txtNombre"></td>
             </tr>
             <tr>
-                <td>Apellido: </td><td><input type="text" id="txtApellido"></td>
+                <td>Nota: </td><td><input type="text" id="txtNota"></td>
             </tr>
             <tr>
                 <td>Fec. Nacimiento: </td><td><input type="text" id="txtFecNac"></td>
             </tr>
         </table>
         <br/>
-        <button onclick="insertarFinal()" id="btnAgregar">Agregar</button>
-        <button onclick="eliminarFinal()" id="btnEliminar">Eliminar</button>
-        <button onclick="mostrarLista()" id="btnImprimir">Imprimir</button>
+        <button onclick="agregarAlumno()" id="btnAgregar">Agregar</button>
+        <button onclick="eliminarUltimo()" id="btnEliminar">Eliminar</button>
+        <button onclick="imprimirLista()" id="btnImprimir">Imprimir</button>
         
         <pre id="salida"></pre>
         
-        <script src="script001.js" type="text/javascript"></script>
+        <script src="script002.js" type="text/javascript"></script>
         
     </body>
 </html>

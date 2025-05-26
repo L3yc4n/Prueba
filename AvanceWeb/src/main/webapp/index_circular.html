@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Lista Enlazada</title>
+        <title>Lista Circular</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <h1>Lista - Persona</h1>
+        <h1>Lista - Medico</h1>
         <table>
             <tr>
-                <td>DNI: </td><td><input type="text" id="txtCodigo"></td>
+                <td>Código: </td><td><input type="text" id="txtCodigo"></td>
             </tr>
             <tr>
                 <td>Nombre: </td><td><input type="text" id="txtNombre"></td>
@@ -21,13 +21,13 @@
             </tr>
         </table>
         <br/>
-        <button onclick="insertarFinal()" id="btnAgregar">Agregar</button>
-        <button onclick="eliminarFinal()" id="btnEliminar">Eliminar</button>
-        <button onclick="mostrarLista()" id="btnImprimir">Imprimir</button>
+        <button onclick="agregarMedico()" id="btnAgregar">Agregar</button>
+        <button onclick="eliminarMedico()" id="btnEliminar">Eliminar</button>
+        <button onclick="mostrarMedicos()" id="btnImprimir">Imprimir</button>
         
         <pre id="salida"></pre>
         
-        <script src="script001.js" type="text/javascript"></script>
+        <script src="script003.js" type="text/javascript"></script>
         
     </body>
 </html>
