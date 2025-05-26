@@ -4,10 +4,70 @@
  */
 package dao;
 
+import dto.Alumno;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 /**
  *
  * @author Enrique
  */
 public class arLiAlumno {
+    private List<Alumno> lista = new ArrayList<>();
+    private int ubicacion = -1;
     
+    public void agregar(Alumno a){
+        lista.add(a);
+        ubicacion = lista.size()-1;
+    }
+    
+    public String imprimir(){
+        String resultado = "Lista - Alumno\n";
+        for (Alumno alumno : lista) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+            resultado += alumno.getCodigo() + " - " + alumno.getNombre() + " - " + sdf.format(alumno.getNacimiento()) + " - " + alumno.getNota() + "\n";
+        }
+        return resultado;
+    }
+    
+    public void primero(){
+        ubicacion = 0;
+    }
+    
+    public void anterior(){
+        if(ubicacion > 0) ubicacion--;
+    }
+    
+    public void siguiente(){
+        if(ubicacion < lista.size() - 1) ubicacion++;
+    }
+    
+    public void ultimo(){
+        ubicacion = lista.size() - 1;
+    }
+    
+    public boolean esVacio(){
+        return lista.isEmpty();
+    }
+    
+    public Alumno getAlumno(){
+        if(ubicacion >= 0 && ubicacion < lista.size() - 1) return lista.get(ubicacion);
+        return null;
+    }
+    
+    public void setAlumno(Alumno a){
+        lista.set(ubicacion,a); 
+    }
+    
+    public void eliminar(){
+        if(!esVacio()){
+            lista.remove(ubicacion);
+        } if(lista.isEmpty()){
+            ubicacion = -1;
+        } else if(ubicacion >= lista.size() - 1){
+            ubicacion = lista.size() - 1;
+        }
+    }
 }
