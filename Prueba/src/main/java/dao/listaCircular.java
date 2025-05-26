@@ -2,6 +2,7 @@ package dao;
 
 import dto.Medico;
 import dto.Nodo;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 public class listaCircular {
@@ -19,7 +20,7 @@ public class listaCircular {
             nuevoNodo.setSiguiente(cabeza); //El siguiente dek nuevo nodo es el mismo nodo
         } else {
             Nodo actual = cabeza;
-            while(actual.getSiguiente() != null){
+            while(actual.getSiguiente() != cabeza){
                 actual = actual.getSiguiente();
             }
             actual.setSiguiente(nuevoNodo);  //Enlazamos el último nodo con el nuevo nodo
@@ -57,7 +58,7 @@ public class listaCircular {
                             anterior.setSiguiente(actual.getSiguiente()); //Eliminar el nodo
                         }
                     }
-                JOptionPane.showMessageDialog(null, "Nodo con codigo: " + " " + "ha sido eliminado correctamente.");
+                    JOptionPane.showMessageDialog(null, "Nodo con código: " + codigoMedi + " ha sido eliminado correctamente.");
                 return;
                 }
             }
@@ -73,11 +74,12 @@ public class listaCircular {
             JOptionPane.showMessageDialog(null, "No hay nada en la lista web...");
             return;
         }
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yy");
         Nodo actual = cabeza;
         String resultado = "Lista Circular - (Medico)\n";
         do{
-            Medico a = new Medico();
-            resultado += a.getCodigo() + " - " + a.getNombre() + " - " + a.getApellido() + " - " + a.getNacimiento() + "\n";
+            Medico a = (Medico) actual.getDato();
+            resultado += a.getCodigo() + " - " + a.getNombre() + " - " + a.getApellido() + " - " + sdf.format(a.getNacimiento()) + "\n";
             actual = actual.getSiguiente();
         } while (actual != cabeza);
         resultado += "De nuevo al comienzo en este punto :3";
