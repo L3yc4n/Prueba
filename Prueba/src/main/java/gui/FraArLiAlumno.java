@@ -4,17 +4,64 @@
  */
 package gui;
 
+import dao.arLiAlumno;
+import dto.Alumno;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Enrique
  */
 public class FraArLiAlumno extends javax.swing.JFrame {
-
+    
+    arLiAlumno list = new arLiAlumno();
+    boolean agregando = false;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");   
     /**
      * Creates new form FraArLiAlumno
      */
     public FraArLiAlumno() {
         initComponents();
+        habilitarCajas(false);
+        habilitarMovimiento(false);
+        habilitarEdicion(true);
+        btnModificar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnImprimir.setEnabled(false);
+    }
+    
+    public void habilitarMovimiento(boolean x){
+        btnPrimero.setEnabled(x);
+        btnAnterior.setEnabled(x);
+        btnSiguiente.setEnabled(x);
+        btnUltimo.setEnabled(x);
+    }
+    
+    public void habilitarEdicion(boolean x){
+        btnAgregar.setEnabled(x);
+        btnModificar.setEnabled(x);
+        btnEliminar.setEnabled(x);
+        btnImprimir.setEnabled(x);
+        
+        btnGrabar.setEnabled(!x);
+        btnCancelar.setEnabled(!x);
+    }
+    
+    public void habilitarCajas(boolean x){
+        txtCodigo.setEnabled(x);
+        txtNombre.setEnabled(x);
+        txtFecNac.setEnabled(x);
+        txtNota.setEnabled(x);       
+    }
+    
+    public void limpiarCajas(){
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtFecNac.setText("");
+        txtNota.setText("");
     }
 
     /**
@@ -226,42 +273,135 @@ public class FraArLiAlumno extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
+        agregando = true;
+        habilitarCajas(true);
+        habilitarEdicion(false);
+        habilitarMovimiento(false);
+        limpiarCajas();
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
+        agregando = false;
+        habilitarCajas(true);
+        habilitarEdicion(false);
+        habilitarMovimiento(false);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        Alumno a = list.getAlumno();
+        list.eliminar();
+        JOptionPane.showMessageDialog(null,"Eliminado correctamente.");
+        a = list.getAlumno();
+        if(a != null){  
+            txtCodigo.setText(String.valueOf(a.getCodigo()));
+            txtNombre.setText(a.getNombre());
+            txtFecNac.setText(sdf.format(a.getNacimiento()));
+            txtNota.setText(String.valueOf(a.getNota()));
+        } else {
+            limpiarCajas();
+            habilitarCajas(false);
+            habilitarMovimiento(false);
+            habilitarEdicion(true);
+            btnModificar.setEnabled(false);
+            btnEliminar.setEnabled(false);
+            btnImprimir.setEnabled(false);
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // TODO add your handling code here:
+        String resultado = list.imprimir();
+        JOptionPane.showMessageDialog(rootPane, resultado);
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
         // TODO add your handling code here:
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        String codigo = txtCodigo.getText();
+        String nombre = txtNombre.getText();
+        String fecNac = txtFecNac.getText();
+        String nota = txtNota.getText();
+        
+        if(agregando == true){
+           try{
+            Date fecha = sdf.parse(fecNac);
+            Alumno a = new Alumno(Integer.parseInt(codigo),nombre,Double.parseDouble(nota),fecha);
+            // Aquí puedes agregar el alumno a tu lista
+            list.agregar(a);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, "Error en la fecha. Usa el formato dd/MM/yy");
+            }
+            JOptionPane.showMessageDialog(rootPane, "Agregado.");
+            habilitarEdicion(true);
+        } else {
+            try{
+            Date fecha = sdf.parse(fecNac);
+            Alumno a = new Alumno(Integer.parseInt(codigo),nombre,Double.parseDouble(nota),fecha);
+            // Aquí puedes agregar el alumno a tu lista
+            list.setAlumno(a);
+            JOptionPane.showMessageDialog(rootPane, "Editado.");
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, "Error en la fecha. Usa el formato dd/MM/yy");
+            }
+        }
+        habilitarMovimiento(true);
+        habilitarEdicion(true);
+        habilitarCajas(false);
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        habilitarMovimiento(true);
+        habilitarEdicion(true);
+        habilitarCajas(false);
+        Alumno a = list.getAlumno();
+        txtCodigo.setText(String.valueOf(a.getCodigo()));
+        txtNombre.setText(a.getNombre());
+        txtFecNac.setText(sdf.format(a.getNacimiento()));
+        txtNota.setText(String.valueOf(a.getNota()));
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnPrimeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeroActionPerformed
         // TODO add your handling code here:
+        list.primero();
+        Alumno a = list.getAlumno();  
+        txtCodigo.setText(String.valueOf(a.getCodigo()));
+        txtNombre.setText(a.getNombre());
+        txtFecNac.setText(sdf.format(a.getNacimiento()));
+        txtNota.setText(String.valueOf(a.getNota()));
     }//GEN-LAST:event_btnPrimeroActionPerformed
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         // TODO add your handling code here:
+        list.anterior();
+        Alumno a = list.getAlumno();  
+        txtCodigo.setText(String.valueOf(a.getCodigo()));
+        txtNombre.setText(a.getNombre());
+        txtFecNac.setText(sdf.format(a.getNacimiento()));
+        txtNota.setText(String.valueOf(a.getNota()));
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
+        list.siguiente();
+        Alumno a = list.getAlumno();  
+        txtCodigo.setText(String.valueOf(a.getCodigo()));
+        txtNombre.setText(a.getNombre());
+        txtFecNac.setText(sdf.format(a.getNacimiento()));
+        txtNota.setText(String.valueOf(a.getNota()));
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
         // TODO add your handling code here:
+        list.ultimo();
+        Alumno a = list.getAlumno();  
+        txtCodigo.setText(String.valueOf(a.getCodigo()));
+        txtNombre.setText(a.getNombre());
+        txtFecNac.setText(sdf.format(a.getNacimiento()));
+        txtNota.setText(String.valueOf(a.getNota()));
     }//GEN-LAST:event_btnUltimoActionPerformed
 
     /**

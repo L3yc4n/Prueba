@@ -27,7 +27,7 @@ public class arLiAlumno {
         String resultado = "Lista - Alumno \n";
         for (Alumno alumno : lista) {
             SimpleDateFormat sdf = new SimpleDateFormat();
-            resultado = alumno.getCodigo() + " - " + alumno.getNombre() + " - " + sdf.format(alumno.getNacimiento()) + " - " + alumno.getNota() + "\n";
+            resultado += alumno.getCodigo() + " - " + alumno.getNombre() + " - " + sdf.format(alumno.getNacimiento()) + " - " + alumno.getNota() + "\n";
         }
         return resultado;
     }
@@ -43,7 +43,7 @@ public class arLiAlumno {
     }
     
     public void siguiente(){
-        if(ubicacion < lista.size()-1){
+        if(ubicacion < lista.size() - 1 ){
             ubicacion++;
         }
     }
@@ -53,7 +53,9 @@ public class arLiAlumno {
     }
     
     public Alumno getAlumno(){
-        if(ubicacion >= 0 && ubicacion < lista.size()-1) return lista.get(ubicacion);
+        if(ubicacion >= 0 && ubicacion < lista.size()){
+            return lista.get(ubicacion);
+        }
         return null;
     }
     
@@ -67,11 +69,13 @@ public class arLiAlumno {
     }
     
     public void eliminar(){
-        if(!esVacio()){
+        if (!esVacio()) {
             lista.remove(ubicacion);
-        }
-        if(ubicacion >= lista.size()-1){
-            ubicacion = lista.size() - 1;
+            if (lista.isEmpty()) {
+                ubicacion = -1; // No hay más elementos
+            } else if (ubicacion >= lista.size()) {
+                ubicacion = lista.size() - 1; // Ajustar al último válido
+            }
         }
     }
 }
