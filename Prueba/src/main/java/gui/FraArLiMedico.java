@@ -1,22 +1,62 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
-/**
- *
- * @author Enrique
- */
-public class FraArLiMedico extends javax.swing.JFrame {
+import dao.arLiMedico;
+import dto.Medico;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
+public class FraArLiMedico extends javax.swing.JFrame {
+    arLiMedico medic =new arLiMedico();
     /**
      * Creates new form FraArLiMedico
      */
+    boolean agregando=false;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
     public FraArLiMedico() {
         initComponents();
+        
+         habilitarBotonesMovimiento(false);
+        habilitarBotonesEdicion(true);
+        btnModificar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnImprimir.setEnabled(false);
+        habilitarCajas(false);
     }
 
+     public void habilitarBotonesMovimiento(boolean x) {
+        btnPrimero.setEnabled(x);
+        btnAnterior.setEnabled(x);
+        btnSiguiente.setEnabled(x);
+        btnUltimo.setEnabled(x);
+    }
+
+    public void habilitarBotonesEdicion(boolean x) {
+        btnAgregar.setEnabled(x);
+        btnModificar.setEnabled(x);
+        btnEliminar.setEnabled(x);
+        btnImprimir.setEnabled(x);
+
+        btnGrabar.setEnabled(!x);
+        btnCancelar.setEnabled(!x);
+    }
+
+    public void limpiarCajasTexto() {
+        //LIMPIARA
+        txtcodigo.setText("");
+    txtnombre.setText("");
+    txtapellido.setText("");
+    txtnacimiento.setText("");
+    }
+
+    public void habilitarCajas(boolean x) {
+         txtcodigo.setEnabled(x);
+    txtnombre.setEnabled(x);
+    txtapellido.setEnabled(x);
+    txtnacimiento.setEnabled(x);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +66,359 @@ public class FraArLiMedico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        co = new javax.swing.JLabel();
+        no = new javax.swing.JLabel();
+        txtcodigo = new javax.swing.JTextField();
+        txtnombre = new javax.swing.JTextField();
+        btnGrabar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        mi = new javax.swing.JLabel();
+        txtapellido = new javax.swing.JTextField();
+        fe = new javax.swing.JLabel();
+        txtnacimiento = new javax.swing.JTextField();
+        btnPrimero = new javax.swing.JButton();
+        btnAnterior = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
+        btnUltimo = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        co.setText("codigo:");
+
+        no.setText("nombre:");
+
+        txtcodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcodigoActionPerformed(evt);
+            }
+        });
+
+        btnGrabar.setText("grabar");
+        btnGrabar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        mi.setText("apellido");
+
+        fe.setText("fech.nacimeinto");
+
+        btnPrimero.setText("|<");
+        btnPrimero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrimeroActionPerformed(evt);
+            }
+        });
+
+        btnAnterior.setText("<");
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
+
+        btnSiguiente.setText(">");
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteActionPerformed(evt);
+            }
+        });
+
+        btnUltimo.setText(">|");
+        btnUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltimoActionPerformed(evt);
+            }
+        });
+
+        btnAgregar.setText("agreagr");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setText("modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("elimianr");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnImprimir.setText("imprimri");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(mi)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtapellido))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(co)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(no)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnGrabar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+                        .addGap(63, 63, 63))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(fe)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtnacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnPrimero))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAnterior)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSiguiente)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUltimo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnModificar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnImprimir)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(co)
+                            .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(no)
+                            .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mi)
+                            .addComponent(txtapellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(btnGrabar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fe)
+                    .addComponent(txtnacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPrimero)
+                    .addComponent(btnAnterior)
+                    .addComponent(btnSiguiente)
+                    .addComponent(btnUltimo))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnModificar)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnImprimir))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+  
+    private void btnPrimeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeroActionPerformed
+        medic.primero();
+        Medico me= medic.getMedico();
+        txtcodigo.setText(String.valueOf(me.getCodigo()));
+        txtnombre.setText(me.getNombre());
+        txtapellido.setText(me.getApellido());
+        txtnacimiento.setText(sdf.format(me.getNacimiento()));
+    }//GEN-LAST:event_btnPrimeroActionPerformed
+
+    private void txtcodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcodigoActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+          agregando = true; //para que cambien y se habilite lavariable bandera entonces al aplastar agregar ahi si 
+
+        limpiarCajasTexto();
+        habilitarBotonesMovimiento(false);
+        habilitarBotonesEdicion(false);  //si es true se habilita solo lo de editar sino los de grabar y cancelar que es ne este caso eso
+        habilitarCajas(true);
+        txtcodigo.requestFocus();
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
+       String codigo = txtcodigo.getText();
+    String nombre = txtnombre.getText();
+    String apellido = txtapellido.getText();
+    String nacimiento = txtnacimiento.getText();
+
+        if (agregando == true) {  // o sea si el agregando hace eso ya que lo habilita    y no aplasto el botn modificar sino agregar
+            
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+              Date fe = sdf.parse(nacimiento);
+                 Medico me = new Medico( nombre,apellido,fe,Integer.parseInt(codigo));
+
+            medic.agregar(me);
+       
+            JOptionPane.showMessageDialog(rootPane, "agregado");
+                
+            } catch (ParseException e) {
+                 JOptionPane.showMessageDialog(rootPane, "Error al parsear la fecha. Usa formato dd/MM/yy");
+            }
+           
+        } else {
+           
+             try {
+                 
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+             Date fe = sdf.parse(nacimiento);
+              Medico me = new Medico( nombre,apellido,fe,Integer.parseInt(codigo));
+              
+                Medico actual = medic.getMedico();
+                if (actual != null) {
+                    medic.setMedico(me);
+            JOptionPane.showMessageDialog(rootPane, "modificado");
+}
+                
+            } catch (ParseException e) {
+                 JOptionPane.showMessageDialog(rootPane, "Error al parsear la fecha usa la estructura: dd/MM/yy");
+            
+        }
+            
+          
+        }
+
+        habilitarBotonesMovimiento(true);
+        habilitarBotonesEdicion(true); //aqui es true para que al grabar no se vuelva a encender grabar 
+        habilitarCajas(false);
+    }//GEN-LAST:event_btnGrabarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+             habilitarBotonesMovimiento(true);
+        habilitarBotonesEdicion(true);
+        habilitarCajas(false);
+
+        Medico me = medic.getMedico();
+        txtcodigo.setText(String.valueOf(me.getCodigo()));
+        txtnombre.setText(me.getNombre());
+        txtapellido.setText(me.getApellido());
+        txtnacimiento.setText(sdf.format(me.getNacimiento()));
+
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+         medic.anterior();
+        Medico me= medic.getMedico();
+         txtcodigo.setText(String.valueOf(me.getCodigo()));
+        txtnombre.setText(me.getNombre());
+        txtapellido.setText(me.getApellido());
+        txtnacimiento.setText(sdf.format(me.getNacimiento()));
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        medic.siguiente();
+        Medico me= medic.getMedico();
+         txtcodigo.setText(String.valueOf(me.getCodigo()));
+        txtnombre.setText(me.getNombre());
+        txtapellido.setText(me.getApellido());
+        txtnacimiento.setText(sdf.format(me.getNacimiento()));
+    }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
+        medic.ultimo();
+        Medico me= medic.getMedico();
+         txtcodigo.setText(String.valueOf(me.getCodigo()));
+        txtnombre.setText(me.getNombre());
+        txtapellido.setText(me.getApellido());
+        txtnacimiento.setText(sdf.format(me.getNacimiento()));
+    }//GEN-LAST:event_btnUltimoActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+          agregando = false;
+        habilitarCajas(true);
+        habilitarBotonesMovimiento(false);
+        habilitarBotonesEdicion(false);
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        
+    int respuesta = JOptionPane.showConfirmDialog(this, "¿seguro de eliminar este alumno?", "Confirmar", JOptionPane.YES_NO_OPTION);
+    if (respuesta == JOptionPane.YES_OPTION) {
+        Medico me = medic.getMedico(); 
+        medic.eliminar();              
+        JOptionPane.showMessageDialog(this, "Alumno eliminado");
+
+        // Mostrar el alumno que queda en la posición actual        Alumno_2 a = aluDAO.getAlumno();
+        
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yy");
+        
+        
+        me = medic.getMedico();
+        if (me != null) {
+           txtcodigo.setText(String.valueOf(me.getCodigo()));
+            txtnombre.setText(me.getNombre());
+            txtapellido.setText(me.getApellido());
+            txtnacimiento.setText(sdf.format(me.getNacimiento()));
+        } else {
+          
+          txtcodigo.setText("");
+            txtnombre.setText("");
+            txtapellido.setText("");
+            txtnacimiento.setText("");
+        }
+    }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+       String resultado= medic.imprimir();
+       JOptionPane.showConfirmDialog(rootPane,resultado);
+    }//GEN-LAST:event_btnImprimirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +456,23 @@ public class FraArLiMedico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAnterior;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGrabar;
+    private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnPrimero;
+    private javax.swing.JButton btnSiguiente;
+    private javax.swing.JButton btnUltimo;
+    private javax.swing.JLabel co;
+    private javax.swing.JLabel fe;
+    private javax.swing.JLabel mi;
+    private javax.swing.JLabel no;
+    private javax.swing.JTextField txtapellido;
+    private javax.swing.JTextField txtcodigo;
+    private javax.swing.JTextField txtnacimiento;
+    private javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables
 }
