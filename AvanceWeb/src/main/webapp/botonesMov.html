@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestión Tienda Muy Simple</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Gestión Tienda</h1>
+    <table>
+        <tr><td>Código</td><td><input type="text" id="txtCodigo"></td></tr>
+        <tr><td>Nombre</td><td><input type="text" id="txtNombre"></td></tr>
+        <tr><td>Precio</td><td><input type="text" id="txtPrecio"></td></tr>
+        <tr><td>Stock</td><td><input type="text" id="txtStock"></td></tr>
+    </table>
+
+    <button id="btnPrimero">|<</button>
+    <button id="btnAnterior"><</button>
+    <button id="btnSiguiente">></button>
+    <button id="btnUltimo">>|</button>
+    <br><br>
+
+    <button id="btnNuevo">Nuevo</button>
+    <button id="btnGrabar" disabled>Grabar</button>
+    <button id="btnCancelar" disabled>Cancelar</button>
+    <button id="btnEliminar">Eliminar</button>
+    <button id="btnImprimir">Imprimir</button>
+
+<script>
+    function Producto(codigo, nombre, precio, stock){
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.stock = stock;
+    }
+
+    let productos = [];
+    let posicion = -1;
+    let modoEdicion = false;
+
+    function mostrarProducto(){
+        if(posicion >= 0 && posicion < productos.length){
+             let p = productos[posicion];
+            document.getElementById('txtCodigo').value = p.codigo;
+            document.getElementById('txtNombre').value = p.nombre;
+            document.getElementById('txtPrecio').value = p.precio;
+            document.getElementById('txtStock').value = p.stock;
+        } else {
+            document.getElementById('txtCodigo').value = "";
+            document.getElementById('txtNombre').value = "";
+            document.getElementById('txtPrecio').value = "";
+            document.getElementById('txtStock').value = "";
+        }
+    }
+
+    function cambiarEstadoBotones(enEdicion){
+        modoEdicion = enEdicion;
+
+        document.getElementById('btnGrabar').disabled = !enEdicion;
+        document.getElementById('btnCancelar').disabled = !enEdicion;
+
+        document.getElementById('btnNuevo').disabled = enEdicion;
+        document.getElementById('btnEliminar').disabled = enEdicion;
+        document.getElementById('btnImprimir').disabled = enEdicion;
+
+        document.getElementById('btnPrimero').disabled = enEdicion;
+        document.getElementById('btnAnterior').disabled = enEdicion;
+        document.getElementById('btnSiguiente').disabled = enEdicion;
+        document.getElementById('btnUltimo').disabled = enEdicion;
+
+        document.getElementById('txtCodigo').readOnly = !enEdicion;
+        document.getElementById('txtNombre').readOnly = !enEdicion;
+        document.getElementById('txtPrecio').readOnly = !enEdicion;
+        document.getElementById('txtStock').readOnly = !enEdicion;
+    }
+
+    document.getElementById('btnPrimero').onclick = function(){
+        if(modoEdicion) return;
+        if(productos.length > 0){
+            posicion = 0;
+            mostrarProducto();
+        }
+    };
+
+    document.getElementById('btnUltimo').onclick = function(){
+        if(modoEdicion) return;
+        if(productos.length > 0){
+            posicion = productos.length -1;
+            mostrarProducto();
+        }
+    };
+
+    document.getElementById('btnAnterior').onclick = function(){
+        if(modoEdicion) return;
+        if(posicion > 0){
+            posicion--;
+            mostrarProducto();
+        }
+    };
+
+    document.getElementById('btnSiguiente').onclick = function(){
+        if(modoEdicion) return;
+        if(posicion < productos.length -1){
+            posicion++;
+            mostrarProducto();
+        }
+    };
+
+    document.getElementById('btnNuevo').onclick = function(){
+        if(modoEdicion) return;
+        posicion = -1;
+        mostrarProducto();
+        cambiarEstadoBotones(true);
+    };
+
+    document.getElementById('btnGrabar').onclick = function(){
+        let cod = document.getElementById('txtCodigo').value;
+         let  nom = document.getElementById('txtNombre').value;
+         let pre = document.getElementById('txtPrecio').value;
+         let  stk = document.getElementById('txtStock').value;
+
+        if(cod === "" || nom === "" || pre === "" || stk === ""){
+            alert("Llena todos los campos");
+            return;
+        }
+
+        let prod = new Producto(cod, nom, pre, stk);
+
+        if(posicion === -1){
+            productos[productos.length] = prod;
+            posicion = productos.length - 1;
+            alert("Producto agregado");
+        } else {
+            productos[posicion] = prod;
+            alert("Producto modificado");
+        }
+        cambiarEstadoBotones(false);
+        mostrarProducto();
+    };
+
+    document.getElementById('btnCancelar').onclick = function(){
+        cambiarEstadoBotones(false);
+        mostrarProducto();
+    };
+
+    document.getElementById('btnEliminar').onclick = function(){
+        if(modoEdicion) return;
+        if(posicion >= 0 && posicion < productos.length){
+            for(let i = posicion; i < productos.length - 1; i++){
+                productos[i] = productos[i+1];
+            }
+            productos.length = productos.length - 1;
+
+            alert("Producto eliminado");
+            if(productos.length === 0){
+                posicion = -1;
+            } else if(posicion >= productos.length){
+                posicion = productos.length - 1;
+            }
+            mostrarProducto();
+        } else {
+            alert("No hay producto para eliminar");
+        }
+    };
+
+    document.getElementById('btnImprimir').onclick = function(){
+        if(modoEdicion) return;
+        if(productos.length === 0){
+            alert("No hay productos");
+            return;
+        }
+        let texto = "Lista de Productos:\n";
+        for(let i=0; i < productos.length; i++){
+            let p = productos[i];
+            texto += (i+1) + ". Código: " + p.codigo + ", Nombre: " + p.nombre + ", Precio: " + p.precio + ", Stock: " + p.stock + "\n";
+        }
+        alert(texto);
+    };
+
+    cambiarEstadoBotones(false);
+    mostrarProducto();
+
+</script>
+</body>
+</html>
