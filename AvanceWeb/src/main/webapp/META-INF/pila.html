@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Verificar Balanceo de Paréntesis</title>
+</head>
+<body>
+  <h2>Verificar Balanceo de Paréntesis, Corchetes y Llaves</h2>
+  <label for="formula">Ingresa la fórmula:</label><br>
+  <input type="text" id="formula" value="([({})]}"><br><br>
+  <button onclick="verificarBalanceo()">Verificar</button>
+  <p id="resultado"></p>
+
+  <script>
+    function verificarBalanceo() {
+      const formula = document.getElementById('formula').value;
+      const pila = [];
+      const apertura = ['[', '{', '('];
+      const cierre = [']', '}', ')'];
+
+      for (let i = 0; i < formula.length; i++) {
+        const c = formula[i];
+        if (apertura.includes(c)) {
+          pila.push(c);
+        } else if (cierre.includes(c)) {
+          if (pila.length === 0) {
+            document.getElementById('resultado').innerText = "No balanceado";
+            return;
+          }
+          const cTemp = pila[pila.length - 1];
+          const indice = apertura.indexOf(cTemp);
+          if (cierre[indice] === c) {
+            pila.pop();
+          } else {
+            document.getElementById('resultado').innerText = "No balanceado";
+            return;
+          }
+        }
+      }
+
+      if (pila.length !== 0) {
+        document.getElementById('resultado').innerText = "No balanceado";
+      } else {
+        document.getElementById('resultado').innerText = "Balanceado";
+      }
+    }
+  </script>
+</body>
+</html>
